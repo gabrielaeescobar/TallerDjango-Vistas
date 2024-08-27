@@ -4,7 +4,8 @@ from django.core import serializers
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
+
+@csrf_exempt ## notacion que permite hacer peticiones sin el token de seguridad
 def variables_view(request):
     if request.method == 'GET':
         id = request.GET.get("id", None)
@@ -21,6 +22,7 @@ def variables_view(request):
         variable_dto = vl.create_variable(json.loads(request.body))
         variable = serializers.serialize('json', [variable_dto,])
         return HttpResponse(variable, 'application/json')
+
 
 @csrf_exempt
 def variable_view(request, pk):
